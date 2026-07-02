@@ -1,8 +1,17 @@
+using IdentityService.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<IdentityDbContext>(options =>
+{
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("IdentityDb"));
+});
 
 var app = builder.Build();
 
